@@ -1,0 +1,30 @@
+pkgname=julia-blosc_jll-git
+pkgver=1.14.3+0.0.1.gc9b3910
+pkgrel=1
+pkgdesc="Blosc_jll.jl"
+url="https://github.com/JuliaBinaryWrappers/Blosc_jll.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-lz4_jll julia-zstd_jll blosc)
+provides=('julia-blosc_jll')
+source=(git://github.com/JuliaBinaryWrappers/Blosc_jll.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Blosc_jll.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd Blosc_jll.jl
+
+  /usr/lib/julia/julia-gen-jll.sh Blosc_jll libblosc
+}
+
+package() {
+  cd Blosc_jll.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh Blosc_jll "${pkgdir}" "${pkgname}"
+}
