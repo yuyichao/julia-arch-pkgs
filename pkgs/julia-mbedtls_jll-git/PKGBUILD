@@ -1,6 +1,6 @@
 pkgname=julia-mbedtls_jll-git
-pkgver=2.16.0+0.0.1.ge23e879
-pkgrel=2
+pkgver=2.16.0+2
+pkgrel=1
 pkgdesc="MbedTLS_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/MbedTLS_jll.jl"
 arch=('any')

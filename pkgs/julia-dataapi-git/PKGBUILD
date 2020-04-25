@@ -1,5 +1,5 @@
 pkgname=julia-dataapi-git
-pkgver=1.1.0.0.3.gce2fa84
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="DataAPI.jl"
 url="https://github.com/JuliaData/DataAPI.jl"
