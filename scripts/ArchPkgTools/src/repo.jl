@@ -2,6 +2,8 @@
 
 module Repo
 
+using ..Utils
+
 using Pkg.TOML
 
 function get_all_pkgs(repo_dir)
@@ -24,8 +26,34 @@ struct PrefixInfo
     replaces::Vector{String}
 end
 
+expand_remote_url(url, repo) =
+    Utils.expand_string(url, Dict("repo"=>repo, "arch"=>string(Sys.ARCH)))
+
+function expand_mirrorlist(repo)
+    open("/etc/pacman.d/mirrorlist") do fd
+        for line in eachline(fd)
+            isempty(line) && continue
+            line[1] == '#' && continue
+            line = strip(line)
+            m = match(r"^ *Server *= *([^ ]*)", line)
+            m === nothing && continue
+            return expand_remote_url((m::RegexMatch).captures[1], repo)
+        end
+        @warn("Cannot find default server, use mirrors.kernel.org instead")
+        return "http://mirrors.kernel.org/archlinux/$repo/os/$(Sys.ARCH)"
+    end
+end
+
+function expand_remote(remote, repo)
+    if remote == "mirrorlist"
+        return expand_mirrorlist(repo)
+    end
+    return expand_remote_url(remote, repo)
+end
+
 function _load_prefix(info::Dict)
-    return PrefixInfo(info["pkgname"], info["repo"], info["remote"],
+    repo = info["repo"]
+    return PrefixInfo(info["pkgname"], repo, expand_remote(info["remote"], repo),
                       get(info, "conflicts", String[]),
                       get(info, "provides", String[]),
                       get(info, "replaces", String[]))
