@@ -1,0 +1,34 @@
+pkgname=julia-libarchive-git
+pkgver=0.0.2.0.17.g9d26e43
+pkgrel=1
+pkgdesc="LibArchive.jl"
+url="https://github.com/yuyichao/LibArchive.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia libarchive)
+provides=(julia-libarchive)
+source=(git://github.com/yuyichao/LibArchive.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd LibArchive.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd LibArchive.jl
+
+  cat > deps/deps.jl <<EOF
+const libarchive = "/usr/lib/libarchive.so"
+check_deps() = nothing
+EOF
+}
+
+package() {
+  cd LibArchive.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh LibArchive "${pkgdir}" "${pkgname}"
+  rm "${dest_dir}"/REQUIRE
+}
