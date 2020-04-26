@@ -15,4 +15,26 @@ function get_all_pkgs(repo_dir)
     return pkgs
 end
 
+struct PrefixInfo
+    pkgname::String
+    repo::String
+    remote::String
+    conflicts::Vector{String}
+    provides::Vector{String}
+    replaces::Vector{String}
+end
+
+function _load_prefix(info::Dict)
+    return PrefixInfo(info["pkgname"], info["repo"], info["remote"],
+                      get(info, "conflicts", String[]),
+                      get(info, "provides", String[]),
+                      get(info, "replaces", String[]))
+end
+
+function load_prefixes(repo_dir)
+    prefix_info = TOML.parsefile(joinpath(repo_dir, "prefix-info.toml"))
+    return Dict{String,PrefixInfo}((prefix=>_load_prefix(info)
+                                    for (prefix, info) in prefix_info["prefix"]))
+end
+
 end

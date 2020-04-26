@@ -1,0 +1,14 @@
+[prefix]
+
+[prefix.julia-]
+pkgname = "julia"
+repo = "community"
+remote = "mirrorlist"
+
+[prefix.julia-git-]
+pkgname = "julia-git"
+repo = "archlinuxcn"
+remote = "http://repo.archlinuxcn.org/$arch"
+conflicts = ["julia-$jlname"]
+provides = ["julia-$jlname", "julia-$jlname-git"]
+replaces = ["julia-$jlname-git"]
