@@ -1,4 +1,4 @@
-pkgname=ijulia-git
+pkgname=julia-ijulia-git
 pkgver=1.21.2
 pkgrel=1
 pkgdesc="IJulia.jl"
@@ -7,7 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia julia-conda julia-json julia-softglobalscope julia-mbedtls julia-zmq jupyter)
-provides=(ijulia)
+provides=(julia-ijulia ijulia-git ijulia)
+conflicts=(julia-ijulia ijulia-git ijulia)
+replaces=(ijulia-git ijulia)
 source=(git://github.com/JuliaLang/IJulia.jl)
 md5sums=('SKIP')
 
