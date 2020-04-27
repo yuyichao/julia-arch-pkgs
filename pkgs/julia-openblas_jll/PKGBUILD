@@ -1,6 +1,6 @@
 pkgname=julia-openblas_jll-git
 pkgver=0.3.5+2.0.1.gaab6ab9
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenBLAS_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl"
 arch=('any')
@@ -8,8 +8,10 @@ license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia julia-compilersupportlibraries_jll openblas)
 provides=(julia-openblas_jll)
-source=(git://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl)
-md5sums=('SKIP')
+source=(git://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl
+        jll.toml)
+md5sums=('SKIP'
+         '1cd355246d179ed4840987dffa5d2077')
 
 pkgver() {
   cd OpenBLAS_jll.jl
@@ -20,7 +22,7 @@ pkgver() {
 build() {
   cd OpenBLAS_jll.jl
 
-  /usr/lib/julia/julia-gen-jll.sh OpenBLAS_jll libopenblas
+  julia /usr/lib/julia/julia-gen-jll.jl OpenBLAS_jll ../jll.toml .
 }
 
 package() {

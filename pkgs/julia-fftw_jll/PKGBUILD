@@ -1,6 +1,6 @@
 pkgname=julia-fftw_jll-git
 pkgver=3.3.9+5.0.1.gc3fe9a3
-pkgrel=1
+pkgrel=2
 pkgdesc="FFTW_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/FFTW_jll.jl"
 arch=('any')
@@ -8,8 +8,10 @@ license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia fftw)
 provides=(julia-fftw_jll)
-source=(git://github.com/JuliaBinaryWrappers/FFTW_jll.jl)
-md5sums=('SKIP')
+source=(git://github.com/JuliaBinaryWrappers/FFTW_jll.jl
+        jll.toml)
+md5sums=('SKIP'
+         '15bf7b54e08f974949a438f2023461fd')
 
 pkgver() {
   cd FFTW_jll.jl
@@ -20,8 +22,7 @@ pkgver() {
 build() {
   cd FFTW_jll.jl
 
-  /usr/lib/julia/julia-gen-jll.sh \
-    FFTW_jll libfftw3=libfftw3_threads libfftw3f=libfftw3f_threads
+  julia /usr/lib/julia/julia-gen-jll.jl FFTW_jll ../jll.toml .
 }
 
 package() {

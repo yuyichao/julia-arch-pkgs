@@ -1,6 +1,6 @@
 pkgname=julia-rmath_jll-git
 pkgver=0.2.2+0.0.1.gefa78b8
-pkgrel=1
+pkgrel=2
 pkgdesc="Rmath_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/Rmath_jll.jl"
 arch=('any')
@@ -8,8 +8,10 @@ license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia rmath-julia)
 provides=('julia-rmath_jll')
-source=(git://github.com/JuliaBinaryWrappers/Rmath_jll.jl)
-md5sums=('SKIP')
+source=(git://github.com/JuliaBinaryWrappers/Rmath_jll.jl
+        jll.toml)
+md5sums=('SKIP'
+         '7e76e692002ac12472985b184751b454')
 
 pkgver() {
   cd Rmath_jll.jl
@@ -20,7 +22,7 @@ pkgver() {
 build() {
   cd Rmath_jll.jl
 
-  /usr/lib/julia/julia-gen-jll.sh Rmath_jll libRmath=libRmath-julia
+  julia /usr/lib/julia/julia-gen-jll.jl Rmath_jll ../jll.toml .
 }
 
 package() {

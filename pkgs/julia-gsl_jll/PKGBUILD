@@ -1,15 +1,17 @@
 pkgname=julia-gsl_jll-git
 pkgver=2.6.0+2.0.1.gd2ed6ee
-pkgrel=1
+pkgrel=4
 pkgdesc="GSL_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/GSL_jll.jl"
 arch=('any')
 license=('MIT')
 makedepends=(git julia-pkg-scripts)
-depends=(julia gsl)
+depends=(julia julia-openblas_jll gsl)
 provides=(julia-gsl_jll)
-source=(git://github.com/JuliaBinaryWrappers/GSL_jll.jl)
-md5sums=('SKIP')
+source=(git://github.com/JuliaBinaryWrappers/GSL_jll.jl
+        jll.toml)
+md5sums=('SKIP'
+         'a846ba817b461dbd85586db0a2ff5ccc')
 
 pkgver() {
   cd GSL_jll.jl
@@ -20,15 +22,12 @@ pkgver() {
 build() {
   cd GSL_jll.jl
 
-  /usr/lib/julia/julia-gen-jll.sh \
-    GSL_jll -e - libgsl libgslcblas \
-    -b gsl_histogram=gsl-histogram -b gsl_randist=gsl-randist <<EOF
-const libgsl_path = "/usr/lib/libgsl.so"
-EOF
+  julia /usr/lib/julia/julia-gen-jll.jl GSL_jll ../jll.toml .
 }
 
 package() {
   cd GSL_jll.jl
 
   . /usr/lib/julia/julia-install-pkg.sh GSL_jll "${pkgdir}" "${pkgname}"
+  sed -e '/^\[deps\]$/ a OpenBLAS_jll = "4536629a-c528-5b80-bd46-f80d51c5b363"' -i "${dest_dir}/Project.toml"
 }

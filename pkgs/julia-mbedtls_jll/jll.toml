@@ -1,0 +1,8 @@
+[[library]]
+name = "libmbedx509"
+
+[[library]]
+name = "libmbedtls"
+
+[[library]]
+name = "libmbedcrypto"

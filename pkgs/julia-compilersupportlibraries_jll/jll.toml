@@ -1,0 +1,13 @@
+[[library]]
+name = "libgcc_s"
+file = "libgcc_s.so.1"
+
+[[library]]
+name = "libgfortran"
+
+[[library]]
+name = "libgomp"
+
+[[library]]
+name = "libstdcxx"
+file = "libstdc++"

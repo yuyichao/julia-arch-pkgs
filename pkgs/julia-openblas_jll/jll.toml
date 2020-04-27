@@ -1,0 +1,3 @@
+[[library]]
+name = "libopenblas"
+dlopen_global = true # GSL needs this since it doesn't link to cblas and is compiled with -fno-plt

@@ -1,0 +1,15 @@
+depends = ["OpenBLAS_jll"] # GSL does not link to cblas but uses symbols from it.
+
+[[library]]
+name = "libgsl"
+
+[[library]]
+name = "libgslcblas"
+
+[[binary]]
+name = "gsl_histogram"
+file = "gsl-histogram"
+
+[[binary]]
+name = "gsl_randist"
+file = "gsl-randist"

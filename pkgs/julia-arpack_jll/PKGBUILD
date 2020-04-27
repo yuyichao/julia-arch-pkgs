@@ -1,6 +1,6 @@
 pkgname=julia-arpack_jll-git
 pkgver=3.5.0+3.0.1.g023031d
-pkgrel=1
+pkgrel=2
 pkgdesc="Arpack_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/Arpack_jll.jl"
 arch=('any')
@@ -8,8 +8,10 @@ license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia julia-openblas_jll arpack)
 provides=(julia-arpack_jll)
-source=(git://github.com/JuliaBinaryWrappers/Arpack_jll.jl)
-md5sums=('SKIP')
+source=(git://github.com/JuliaBinaryWrappers/Arpack_jll.jl
+        jll.toml)
+md5sums=('SKIP'
+         'f2288ef331d01b764430caed4e723b61')
 
 pkgver() {
   cd Arpack_jll.jl
@@ -20,7 +22,7 @@ pkgver() {
 build() {
   cd Arpack_jll.jl
 
-  /usr/lib/julia/julia-gen-jll.sh Arpack_jll libarpack
+  julia /usr/lib/julia/julia-gen-jll.jl Arpack_jll ../jll.toml .
 }
 
 package() {
