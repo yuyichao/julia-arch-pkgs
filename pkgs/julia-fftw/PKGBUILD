@@ -1,5 +1,5 @@
 pkgname=julia-fftw-git
-pkgver=1.2.0.0.2.g60e5169
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="FFTW.jl"
 url="https://github.com/JuliaMath/FFTW.jl"
